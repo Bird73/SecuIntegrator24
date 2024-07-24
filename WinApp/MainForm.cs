@@ -1,3 +1,5 @@
+using Birdsoft.SecuIntegrator24.BusinessObject;
+
 using System.Windows.Forms;
 
 namespace Birdsoft.SecuIntegrator24.WinUI
@@ -14,6 +16,19 @@ namespace Birdsoft.SecuIntegrator24.WinUI
             InitializeComponent();
 
             CustomInitializeComponent();
+
+            EventLogManager.WriteEventLog(new EventLog
+            {
+                Type = EventType.Info,
+                Message = "Program started",
+            });
+
+            EnvironmentManager.LoadConfig();
+
+            if (EventLogManager.ErrorCount > 0)
+            {
+                ShowErrorCountAndCheckEventLog();
+            }
 
             ResetControlProperties();
         }
@@ -175,6 +190,27 @@ namespace Birdsoft.SecuIntegrator24.WinUI
             // saveAndReloadButton 和 exitButton 位置中心對齊, 並且位於視窗底部
             this.saveAndReloadButton.Location = new Point((this.ClientSize.Width - this.saveAndReloadButton.Width - this.exitButton.Width) / 2, this.ClientSize.Height - this.saveAndReloadButton.Height - verticalMargin);
             this.exitButton.Location = new Point(this.saveAndReloadButton.Location.X + this.saveAndReloadButton.Width + 10, this.saveAndReloadButton.Location.Y);
+
+            // combo box list is from 2019 to this this year
+            // combo box can't be edited
+            this.initialYearCombo.Items.Clear();
+            for (int i = 2019; i <= System.DateTime.Now.Year; i++)
+            {
+                this.initialYearCombo.Items.Add(i);
+            }
+            this.initialYearCombo.SelectedItem = EnvironmentManager.EnvironmentConfig.InitialYear;
+
+            // Initial connectionDelayTimeCombo with the value from EnvironmentManager.ConnectionDelayTime
+            // combo box list is from 1 to 5
+            this.connectionIntervalCombo.Items.Clear();
+            for (int i = 1; i <= 5; i++)
+            {
+                this.connectionIntervalCombo.Items.Add(i);
+            }
+            this.connectionIntervalCombo.SelectedItem = EnvironmentManager.EnvironmentConfig.ConnectionInterval;
+
+            // Initial AutoRunCheckbox with the value from EnvironmentManager.isAutoRunEnabled
+            this.AutoRunCheckbox.Checked = EnvironmentManager.EnvironmentConfig.isAutoRunEnabled;
         }   
 
         /// <summary>
@@ -207,7 +243,7 @@ namespace Birdsoft.SecuIntegrator24.WinUI
         private void MainForm_Paint(object sender, PaintEventArgs e)
         {
             // Code to be executed when the form is painted
-            ResetControlProperties();
+            //ResetControlProperties();
         }
 
         /// <summary>
@@ -245,6 +281,12 @@ namespace Birdsoft.SecuIntegrator24.WinUI
         /// <param name="e"></param>
         private void ExitButton_Click(object sender, EventArgs e)
         {
+            EventLogManager.WriteEventLog(new EventLog
+            {
+                Type = EventType.Info,
+                Message = "Program exited",
+            });
+
             // Exit program
             this.exitFlag = true;
             this.Close();
@@ -252,8 +294,33 @@ namespace Birdsoft.SecuIntegrator24.WinUI
 
         private void SaveAndReloadButton_Click(object sender, EventArgs e)
         {
+            List<string> errorMessages = new List<string>();
+
             // Save and reload
+            EnvironmentManager.EnvironmentConfig.InitialYear = (int)this.initialYearCombo.SelectedItem;
+            EnvironmentManager.EnvironmentConfig.ConnectionInterval = (int)this.connectionIntervalCombo.SelectedItem;
+            EnvironmentManager.EnvironmentConfig.isAutoRunEnabled = this.AutoRunCheckbox.Checked;
+
+            EnvironmentManager.SaveConfig();
+            if (errorMessages.Count > 0)
+            {
+                ShowErrorCountAndCheckEventLog();
+                MessageBox.Show(string.Join("\n", errorMessages), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                MessageBox.Show("Save and Reload successfully", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
+        /// <summary>
+        ///     Show how many error messages in the event log
+        /// </summary>
+        private void ShowErrorCountAndCheckEventLog()
+        {
+            // Show how many error messages in the event log and reset error count
+            MessageBox.Show($"There are {EventLogManager.ErrorCount} error messages, please check the event log", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            EventLogManager.ResetCount();
+        }
     }
 }
