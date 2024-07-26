@@ -1,5 +1,6 @@
-﻿namespace Birdsoft.SecuIntegrator24.SystemInfrastructureObject;
+﻿namespace Birdsoft.SecuIntegrator24.SystemInfrastructureObject.EnvironmentManager;
 
+using Birdsoft.SecuIntegrator24.SystemInfrastructureObject.EventLogManager;
 using System.Text.Json;
 
 public static class EnvironmentManager
@@ -29,9 +30,13 @@ public static class EnvironmentManager
                 string json = System.IO.File.ReadAllText("SecuIntegrate24.json");
                 var env = JsonSerializer.Deserialize<EnvironmentConfig>(json);
 
-                EnvironmentConfig.InitialYear = env.InitialYear;
-                EnvironmentConfig.ConnectionInterval = env.ConnectionInterval;
-                EnvironmentConfig.isAutoRunEnabled = env.isAutoRunEnabled;
+                if (env != null)
+                {
+                    // Load the configuration from the file.
+                    EnvironmentConfig.InitialYear = env.InitialYear;
+                    EnvironmentConfig.ConnectionInterval = env.ConnectionInterval;
+                    EnvironmentConfig.isAutoRunEnabled = env.isAutoRunEnabled;
+                }
             }
         }
         catch (Exception ex)

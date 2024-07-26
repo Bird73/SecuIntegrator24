@@ -1,4 +1,4 @@
-namespace Birdsoft.SecuIntegrator24.SystemInfrastructureObject;
+namespace Birdsoft.SecuIntegrator24.SystemInfrastructureObject.EventLogManager;
 
 using System.Diagnostics;
 using System.Globalization;

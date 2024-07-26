@@ -1,6 +1,6 @@
 ﻿namespace Birdsoft.SecuIntegrator24.DataAccessObject;
 
-using Birdsoft.SecuIntegrator24.SystemInfrastructureObject;
+using Birdsoft.SecuIntegrator24.SystemInfrastructureObject.EventLogManager;
 
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;

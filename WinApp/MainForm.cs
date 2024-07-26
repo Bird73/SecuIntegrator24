@@ -1,4 +1,5 @@
-using Birdsoft.SecuIntegrator24.SystemInfrastructureObject;
+using Birdsoft.SecuIntegrator24.SystemInfrastructureObject.EnvironmentManager;
+using Birdsoft.SecuIntegrator24.SystemInfrastructureObject.EventLogManager;
 using Birdsoft.SecuIntegrator24.BusinessObject;
 
 using System.Windows.Forms;

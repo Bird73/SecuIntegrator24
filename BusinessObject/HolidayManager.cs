@@ -1,6 +1,6 @@
 namespace Birdsoft.SecuIntegrator24.BusinessObject;
 
-using Birdsoft.SecuIntegrator24.SystemInfrastructureObject;
+using Birdsoft.SecuIntegrator24.SystemInfrastructureObject.EventLogManager;
 using Birdsoft.SecuIntegrator24.DataAccessObject;
 
 using System.Text.RegularExpressions;
