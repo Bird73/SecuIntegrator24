@@ -1,4 +1,4 @@
-namespace Birdsoft.SecuIntegrator24.BusinessObject;
+namespace Birdsoft.SecuIntegrator24.SystemInfrastructureObject;
 
 /// <summary>
 ///   This class is used to store the configuration of the environment.

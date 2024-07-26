@@ -1,3 +1,4 @@
+using Birdsoft.SecuIntegrator24.SystemInfrastructureObject;
 using Birdsoft.SecuIntegrator24.BusinessObject;
 
 using System.Windows.Forms;
@@ -50,7 +51,7 @@ namespace Birdsoft.SecuIntegrator24.WinUI
             // 
             // trayIcon
             // 
-            trayIcon.Icon = (Icon)resources.GetObject("trayIcon.Icon");
+            trayIcon.Icon = resources.GetObject("trayIcon.Icon") as Icon;
             trayIcon.Text = "notifyIcon1";
             trayIcon.Visible = true;
             // 
@@ -136,7 +137,7 @@ namespace Birdsoft.SecuIntegrator24.WinUI
             Controls.Add(connectionIntervalLabel);
             Controls.Add(initialYearCombo);
             Controls.Add(initialYearLabel);
-            Icon = (Icon)resources.GetObject("$this.Icon");
+            Icon = resources.GetObject("$this.Icon") as Icon;
             Name = "MainForm";
             Text = "SecuIntegrator 24";
             Load += new EventHandler(MainForm_Load);
@@ -146,17 +147,16 @@ namespace Birdsoft.SecuIntegrator24.WinUI
             PerformLayout();
         }
 
-        private NotifyIcon trayIcon;
-        private System.ComponentModel.IContainer components;
-
-        private Label initialYearLabel;
-        private ComboBox initialYearCombo;
-        private Label connectionIntervalLabel;
-        private ComboBox connectionIntervalCombo;
-        private Label secondLabel;
-        private CheckBox AutoRunCheckbox;
-        private Button saveAndReloadButton;
-        private Button exitButton;
+        private NotifyIcon trayIcon = default!;
+        private System.ComponentModel.IContainer components = default!;
+        private Label initialYearLabel = default!;
+        private ComboBox initialYearCombo = default!;
+        private Label connectionIntervalLabel = default!;
+        private ComboBox connectionIntervalCombo = default!;
+        private Label secondLabel = default!;
+        private CheckBox AutoRunCheckbox = default!;
+        private Button saveAndReloadButton = default!;
+        private Button exitButton = default!;
 
         /// <summary>
         /// Custom initialization of components
@@ -218,10 +218,13 @@ namespace Birdsoft.SecuIntegrator24.WinUI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MainForm_Load(object sender, EventArgs e)
+        private void MainForm_Load(object? sender, EventArgs e)
         {
             // Code to be executed when the form is loaded
             ResetControlProperties();
+
+            // Load the holidays from the database
+            HolidayManager.Initialize();
         }
 
         /// <summary>
@@ -229,7 +232,7 @@ namespace Birdsoft.SecuIntegrator24.WinUI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MainForm_Resize(object sender, EventArgs e)
+        private void MainForm_Resize(object? sender, EventArgs e)
         {
             // Code to be executed when the form is resized
             ResetControlProperties();
@@ -240,7 +243,7 @@ namespace Birdsoft.SecuIntegrator24.WinUI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MainForm_Paint(object sender, PaintEventArgs e)
+        private void MainForm_Paint(object? sender, PaintEventArgs e)
         {
             // Code to be executed when the form is painted
             //ResetControlProperties();
@@ -267,7 +270,7 @@ namespace Birdsoft.SecuIntegrator24.WinUI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void trayIcon_DoubleClick(object sender, EventArgs e)
+        private void trayIcon_DoubleClick(object? sender, EventArgs e)
         {
             this.Show();
             this.WindowState = FormWindowState.Normal;
@@ -279,7 +282,7 @@ namespace Birdsoft.SecuIntegrator24.WinUI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ExitButton_Click(object sender, EventArgs e)
+        private void ExitButton_Click(object? sender, EventArgs e)
         {
             EventLogManager.WriteEventLog(new EventLog
             {
@@ -292,14 +295,14 @@ namespace Birdsoft.SecuIntegrator24.WinUI
             this.Close();
         }
 
-        private void SaveAndReloadButton_Click(object sender, EventArgs e)
+        private void SaveAndReloadButton_Click(object? sender, EventArgs e)
         {
             List<string> errorMessages = new List<string>();
 
             // Save and reload
-            EnvironmentManager.EnvironmentConfig.InitialYear = (int)this.initialYearCombo.SelectedItem;
-            EnvironmentManager.EnvironmentConfig.ConnectionInterval = (int)this.connectionIntervalCombo.SelectedItem;
-            EnvironmentManager.EnvironmentConfig.isAutoRunEnabled = this.AutoRunCheckbox.Checked;
+            EnvironmentManager.EnvironmentConfig.InitialYear = this.initialYearCombo.SelectedItem as int? ?? DateTime.Now.Year;
+            EnvironmentManager.EnvironmentConfig.ConnectionInterval = this.connectionIntervalCombo.SelectedItem as int? ?? 1;
+            EnvironmentManager.EnvironmentConfig.isAutoRunEnabled = this.AutoRunCheckbox.Checked ;
 
             EnvironmentManager.SaveConfig();
             if (errorMessages.Count > 0)

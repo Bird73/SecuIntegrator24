@@ -1,5 +1,9 @@
 WinApp/bin
 WinApp/obj
 WinApp/.vs
+SystemInfrastructureObject/bin
+SystemInfrastructureObject/obj
 BusinessObject/bin
 BusinessObject/obj
+DataAccessObject/bin
+DataAccessObject/obj

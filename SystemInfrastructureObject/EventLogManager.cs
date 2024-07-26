@@ -1,4 +1,4 @@
-namespace Birdsoft.SecuIntegrator24.BusinessObject;
+namespace Birdsoft.SecuIntegrator24.SystemInfrastructureObject;
 
 using System.Diagnostics;
 using System.Globalization;

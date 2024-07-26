@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecuIntegrator24", "WinApp\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecuIntegrator24BO", "BusinessObject\SecuIntegrator24BO.csproj", "{A1BA173C-D52A-4EF1-8DF6-EEE01F05A30C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecuIntegrator24DAO", "DataAccessObject\SecuIntegrator24DAO.csproj", "{16FA7FD3-E3D3-4FA3-B5A1-FC060ADDEBDC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecuIntegrator24SIO", "SystemInfrastructureObject\SecuIntegrator24SIO.csproj", "{6CF60D50-C754-4EBF-8B2E-9F1F0FBC95BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{A1BA173C-D52A-4EF1-8DF6-EEE01F05A30C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1BA173C-D52A-4EF1-8DF6-EEE01F05A30C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1BA173C-D52A-4EF1-8DF6-EEE01F05A30C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16FA7FD3-E3D3-4FA3-B5A1-FC060ADDEBDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16FA7FD3-E3D3-4FA3-B5A1-FC060ADDEBDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16FA7FD3-E3D3-4FA3-B5A1-FC060ADDEBDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16FA7FD3-E3D3-4FA3-B5A1-FC060ADDEBDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CF60D50-C754-4EBF-8B2E-9F1F0FBC95BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CF60D50-C754-4EBF-8B2E-9F1F0FBC95BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CF60D50-C754-4EBF-8B2E-9F1F0FBC95BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CF60D50-C754-4EBF-8B2E-9F1F0FBC95BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
