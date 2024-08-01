@@ -1,8 +1,7 @@
 using Birdsoft.SecuIntegrator24.SystemInfrastructureObject.EnvironmentManager;
 using Birdsoft.SecuIntegrator24.SystemInfrastructureObject.EventLogManager;
 using Birdsoft.SecuIntegrator24.BusinessObject;
-
-using System.Windows.Forms;
+using Birdsoft.SecuIntegrator24.SystemInfrastructureObject.BackgroundTask;
 
 namespace Birdsoft.SecuIntegrator24.WinUI
 {
@@ -21,7 +20,7 @@ namespace Birdsoft.SecuIntegrator24.WinUI
 
             EventLogManager.WriteEventLog(new EventLog
             {
-                Type = EventType.Info,
+                Type = EventType.Information,
                 Message = "Program started",
             });
 
@@ -33,6 +32,14 @@ namespace Birdsoft.SecuIntegrator24.WinUI
             }
 
             ResetControlProperties();
+
+            // Load the schedule from the json file
+            BusinessObject.TaskScheduler taskScheduler = new BusinessObject.TaskScheduler();
+            taskScheduler.LoadScheduleFomrConfig();
+            taskScheduler.RegisterAndScheduleTasks();       // Register and schedule a task               
+
+            TaskScheduleManager.StartAllTasks();             // Start all tasks
+            TaskScheduleManager.StartDailyReset();
         }
 
         private void InitializeComponent()
@@ -263,6 +270,16 @@ namespace Birdsoft.SecuIntegrator24.WinUI
                 this.Hide();
                 this.trayIcon.Visible = true;
             }
+            else
+            {
+                TaskScheduleManager.StopAllTasks();
+
+                EventLogManager.WriteEventLog(new EventLog
+                {
+                    Type = EventType.Information,
+                    Message = "Program exited",
+                });
+            }
             base.OnFormClosing(e);
         }
 
@@ -287,7 +304,7 @@ namespace Birdsoft.SecuIntegrator24.WinUI
         {
             EventLogManager.WriteEventLog(new EventLog
             {
-                Type = EventType.Info,
+                Type = EventType.Information,
                 Message = "Program exited",
             });
 

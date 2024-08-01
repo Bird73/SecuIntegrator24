@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "GetHolidays",
+    "Schedule": {
+      "WeeklyDays": [],
+      "MonthlyDays": [],
+      "YearlyDates": ["2024-01-01T00:00:00"],
+      "ExecutionTime": "2024-01-01T00:00:00",
+      "RunOnStartup": true
+    },
+    "Precondition": null
+  }
+]
+  

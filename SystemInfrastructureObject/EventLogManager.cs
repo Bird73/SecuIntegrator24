@@ -12,7 +12,7 @@ using System.Runtime.CompilerServices;
 /// </summary>
 public enum EventType
 {
-    Info,
+    Information,
     Warning,
     Error
 }
@@ -35,7 +35,7 @@ public class EventLog
     /// <summary>
     ///     The type of the event.
     /// </summary>
-    public EventType Type { get; set; } = EventType.Info;
+    public EventType Type { get; set; } = EventType.Information;
     
     /// <summary>
     ///     The message of the event.
@@ -80,10 +80,8 @@ public static class EventLogManager
             StackTrace stackTrace = new StackTrace();
             StackFrame frame = stackTrace.GetFrame(1);      // 1 means the caller of this method.
             var method = frame.GetMethod();
-            var declaringType = method.DeclaringType;
-
-            string className = declaringType != null ? declaringType.Name : "UnknownClass";
-            string methodName = method.Name;
+            string className = method?.DeclaringType?.Name ?? "UnknownClass";
+            string methodName = method?.Name ?? "UnknownMethod";
 
             eventLog.ObjectClass = $"{className}.{methodName}";
 
@@ -176,7 +174,7 @@ public static class EventLogManager
         {
             switch (eventType)
             {
-                case EventType.Info:
+                case EventType.Information:
                     InfoCount++;
                     break;
                 case EventType.Warning:
