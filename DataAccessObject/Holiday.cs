@@ -4,7 +4,6 @@ using Birdsoft.SecuIntegrator24.SystemInfrastructureObject.EventLogManager;
 
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Sqlite;
 using System.ComponentModel.DataAnnotations;
 
 /// <summary>

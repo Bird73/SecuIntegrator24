@@ -80,6 +80,18 @@ public static class HolidayManager
                     {
                         new Holiday
                         {
+                            Name = "農曆春節前",
+                            Date = new DateTime(2024, 2, 6),
+                            Description = "農曆春節前休市一天"
+                        },
+                        new Holiday
+                        {
+                            Name = "農曆春節前",
+                            Date = new DateTime(2024, 2, 7),
+                            Description = "農曆春節前休市一天"
+                        },
+                        new Holiday
+                        {
                             Name = "凱米颱風",
                             Date = new DateTime(2024, 7, 24),
                             Description = "颱風休市一天"
@@ -93,12 +105,21 @@ public static class HolidayManager
                     });
                     break;
                 case 2023:
-                    Holidays.Add(new Holiday
+                    Holidays.AddRange(new[]
                     {
+                        new Holiday
+                        {
+                            Name = "農曆春節前",
+                            Date = new DateTime(2023, 1, 19),
+                            Description = "農曆春節前休市一天" 
+                        },
+                        new Holiday
+                        {
                             Name = "卡努颱風",
                             Date = new DateTime(2023, 8, 3),
                             Description = "颱風休市一天" 
-                    });
+                        }
+                    });    
                     break;
                 case 2019:
                     Holidays.AddRange(new[]
@@ -217,4 +238,22 @@ public static class HolidayManager
             });
         }
     }
+
+    /// <summary>
+    ///     Checks if the specified date is a holiday
+    /// </summary>
+    /// <param name="date"></param>
+    /// <returns></returns>
+    public static bool IsHoliday(DateTime date)
+    {
+        // Check if the date is a holiday
+        if (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday)
+        {
+            return true;
+        }
+        else
+        {
+            return Holidays.Any(h => h.Date == date);
+        }
+    }     
 }

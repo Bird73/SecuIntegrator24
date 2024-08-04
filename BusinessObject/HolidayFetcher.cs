@@ -20,18 +20,31 @@ public class HolidayFetcher()
         // Load the holidays from the URL
         // url = "https://www.tpex.org.tw/storage/zh-tw/web/bulletin/trading_date/trading_date_" + processYear - 1911 +".htm"
         string url = $"https://www.tpex.org.tw/storage/zh-tw/web/bulletin/trading_date/trading_date_{year - 1911}.htm";
-        HttpResponseMessage response = _client.GetAsync(url).Result;
-        if (response.IsSuccessStatusCode)
+
+        try
         {
-            string html = response.Content.ReadAsStringAsync().Result;
-            ParseHolidaysFromHTML(year, html);
+            HttpResponseMessage response = _client.GetAsync(url).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                string html = response.Content.ReadAsStringAsync().Result;
+                ParseHolidaysFromHTML(year, html);
+            }
+            else
+            {
+                // Log the exception to the BusinessObject.EventLogManger
+                EventLogManager.WriteEventLog(new EventLog
+                {
+                    Message = $"Failed to fetch holidays from {url}",
+                    Type = EventType.Error
+                });
+            }
         }
-        else
+        catch (Exception ex)
         {
             // Log the exception to the BusinessObject.EventLogManger
             EventLogManager.WriteEventLog(new EventLog
             {
-                Message = $"Failed to fetch holidays from {url}",
+                Message = ex.Message,
                 Type = EventType.Error
             });
         }
@@ -66,6 +79,8 @@ public class HolidayFetcher()
                 {
                     try
                     {
+                        if (string.IsNullOrEmpty(d.Trim())) continue;
+                        
                         holiday.Name = match.Groups[1].Value.Trim();
                         holiday.Date = ParseDate(processYear, d);       // Combine the year and date string from "1月1日" to "2024/01/01"        
                         holiday.Description = match.Groups[4].Value.Trim();

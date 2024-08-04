@@ -73,6 +73,16 @@ public class TaskScheduler()
             {
                 TaskScheduleManager.RegisterTask(getHolidays, schedule.Schedule, schedule.Precondition);
             }
+
+            GetListingTradings getTradings = new GetListingTradings();
+
+            // Get the schedule from the config then register the task
+            schedule = _scheduleConfig.FirstOrDefault(x => x.Name == getTradings.Name);
+
+            if (schedule != null)
+            {
+                TaskScheduleManager.RegisterTask(getTradings, schedule.Schedule, schedule.Precondition);
+            }
         } 
         catch (Exception ex)
         {

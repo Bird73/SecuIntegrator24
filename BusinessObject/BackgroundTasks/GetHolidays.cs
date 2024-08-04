@@ -12,10 +12,10 @@ public class GetHolidays : IBackgroundTask
     public string Name => "GetHolidays";
     
     /// <summary>
-    ///     The schedule for the task.
+    ///     Fetch holidays from the URL, add natural disaster holidays, and save holidays to the database
     /// </summary>
-    public Schedule Schedule { get; set; } = new Schedule();
-
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public TaskStatus Start(CancellationToken cancellationToken)
     {
         for (int processYear = DateTime.Now.Year - 1; processYear >= EnvironmentManager.EnvironmentConfig.InitialYear; processYear--)
