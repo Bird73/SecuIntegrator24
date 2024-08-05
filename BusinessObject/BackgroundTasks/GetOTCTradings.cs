@@ -4,15 +4,10 @@ using Birdsoft.SecuIntegrator24.SystemInfrastructureObject.BackgroundTask;
 using Birdsoft.SecuIntegrator24.SystemInfrastructureObject.EnvironmentManager;
 using Birdsoft.SecuIntegrator24.SystemInfrastructureObject.EventLogManager;
 
-public class GetListingTradings : IBackgroundTask
+public class GetOTCTradings : IBackgroundTask
 {
-    public string Name => "GetListingTradings";
-    
-    /// <summary>
-    ///     Fetch trading data from the URL
-    /// </summary>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    public string Name => "GetOTCTradings";
+
     public TaskStatus Start(CancellationToken cancellationToken)
     {
         DateTime initialDate = new DateTime(EnvironmentManager.EnvironmentConfig.InitialYear, 1, 1);
@@ -27,7 +22,6 @@ public class GetListingTradings : IBackgroundTask
                     continue;
                 }
 
-                // Check if processDate is a holiday
                 if (!HolidayManager.IsHoliday(processDate))
                 {
                     TradingFetcher tradingFetcher = new TradingFetcher();
@@ -37,24 +31,25 @@ public class GetListingTradings : IBackgroundTask
                     bool isFileExists = true;
 
                     // Check if file not exists then download
-                    string filePath = Path.Combine("Data", "Trading", processDate.Year.ToString(), "Listing_" + processDate.ToString("yyyyMMdd") + ".json");
+                    string filePath = Path.Combine("Data", "Trading", processDate.Year.ToString(), "OTC_" + processDate.ToString("yyyyMMdd") + ".json");
                     if (!File.Exists(filePath))
                     {
-                        NeedDownload = tradingFetcher.FetchListingTradingDataFromWeb(processDate);        // Fetch trading from the URL and save it to the json file if it is not downloaded yet
+                        NeedDownload = tradingFetcher.FetchOTCTradingDataFromWeb(processDate);
                         isFileExists = NeedDownload;
                     }
 
                     // If file exists then fetch data from file
                     if (isFileExists)
                     {
-                        tradingData = tradingFetcher.FetchListingTradingDataFromJSON(processDate);     // Fetch trading from the json file
+                        tradingData = tradingFetcher.FetchOTCTradingDataFromJSON(processDate);
 
-                        // Save trading to the database
-                        tradingFetcher.SaveTradingToDatabase(tradingData, processDate, DataAccessObject.MarketType.Listing);        
+                        // Save data to database
+                        tradingFetcher.SaveTradingToDatabase(tradingData, processDate, DataAccessObject.MarketType.OTC);
 
+                        // if download is required then wait for connection interval
                         if (NeedDownload)
                         {
-                            Thread.Sleep(EnvironmentManager.EnvironmentConfig.ConnectionInterval * 1000);        // Wait for the connection interval
+                            Thread.Sleep(EnvironmentManager.EnvironmentConfig.ConnectionInterval * 1000);
                         }
                     }
                 }
@@ -66,7 +61,6 @@ public class GetListingTradings : IBackgroundTask
             }
             catch (Exception ex)
             {
-                // Log the exception to the BusinessObject.EventLogManger
                 EventLogManager.WriteEventLog(new EventLog
                 {
                     Message = ex.Message,

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace SecuIntegrator24DAO.Migrations
 {
     [DbContext(typeof(TradingContext))]
-    [Migration("20240804073844_InitialTrading")]
+    [Migration("20240804163019_InitialTrading")]
     partial class InitialTrading
     {
         /// <inheritdoc />
@@ -29,6 +29,9 @@ namespace SecuIntegrator24DAO.Migrations
                     b.Property<DateTime>("TradingDate")
                         .HasColumnType("TEXT")
                         .HasColumnOrder(1);
+
+                    b.Property<decimal?>("AveragePrice")
+                        .HasColumnType("TEXT");
 
                     b.Property<decimal>("Change")
                         .HasColumnType("TEXT");

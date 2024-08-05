@@ -67,6 +67,11 @@ public class Trading
     public decimal? ClosingPrice { get; set; }
 
     /// <summary>
+    ///     The average price of the stock
+    /// </summary>
+    public decimal? AveragePrice { get; set; }
+
+    /// <summary>
     ///     The change indicator of the stock
     /// </summary>
     public char? ChangeIndicator { get; set; }

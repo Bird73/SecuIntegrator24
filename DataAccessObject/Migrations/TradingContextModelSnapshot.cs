@@ -27,6 +27,9 @@ namespace SecuIntegrator24DAO.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnOrder(1);
 
+                    b.Property<decimal?>("AveragePrice")
+                        .HasColumnType("TEXT");
+
                     b.Property<decimal>("Change")
                         .HasColumnType("TEXT");
 

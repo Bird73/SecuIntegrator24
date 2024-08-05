@@ -20,6 +20,21 @@
       "RunOnStartup": true
     },
     "Precondition": null
+  },
+  {
+    "Name": "GetOTCTradings",
+    "Schedule": {
+      "WeeklyDays": [1, 2, 3, 4, 5],
+      "MonthlyDays": [],
+      "YearlyDates": [],
+      "ExecutionTime": "2024-01-01T16:05:00",
+      "RunOnStartup": true
+    },
+    "Precondition": {
+      "TaskNames": ["GetListingTradings"],
+      "Condition": 0
+    }
+
   }
 ]
   

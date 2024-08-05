@@ -74,6 +74,12 @@ namespace SecuIntegrator24DAO.Migrations
                 oldClrType: typeof(decimal),
                 oldType: "TEXT");
 
+            migrationBuilder.AddColumn<decimal>(
+                name: "AveragePrice",
+                table: "Tradings",
+                type: "TEXT",
+                nullable: true);
+
             migrationBuilder.AddColumn<int>(
                 name: "MarketType",
                 table: "Tradings",
@@ -85,6 +91,10 @@ namespace SecuIntegrator24DAO.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropColumn(
+                name: "AveragePrice",
+                table: "Tradings");
+
             migrationBuilder.DropColumn(
                 name: "MarketType",
                 table: "Tradings");
