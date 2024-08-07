@@ -61,7 +61,7 @@ public class GetListingTradings : IBackgroundTask
 
                 if (cancellationToken.IsCancellationRequested)
                 {
-                    return TaskStatus.Canceled;
+                    return TaskStatus.Cancelled;
                 }
             }
             catch (Exception ex)

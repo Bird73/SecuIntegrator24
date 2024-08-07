@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace SecuIntegrator24DAO.Migrations
 {
-    [DbContext(typeof(TradingContext))]
+    [DbContext(typeof(TradingDbContext))]
     partial class TradingContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

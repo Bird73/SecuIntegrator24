@@ -30,7 +30,7 @@ public class GetHolidays : IBackgroundTask
 
             if (cancellationToken.IsCancellationRequested)
             {
-                return TaskStatus.Canceled;
+                return TaskStatus.Cancelled;
             }
 
             Thread.Sleep(2000);

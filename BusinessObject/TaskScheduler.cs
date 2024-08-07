@@ -94,6 +94,13 @@ public class TaskScheduler()
                 TaskScheduleManager.RegisterTask(getOTCTradings, schedule.Schedule, schedule.Precondition);
             }
 
+            // Register and schedule GetMonthlyRevenues
+            GetMonthlyRevenues getMonthlyRevenues = new GetMonthlyRevenues();
+            schedule = _scheduleConfig.FirstOrDefault(x => x.Name == getMonthlyRevenues.Name);
+            if (schedule != null)
+            {
+                TaskScheduleManager.RegisterTask(getMonthlyRevenues, schedule.Schedule, schedule.Precondition);
+            }
         } 
         catch (Exception ex)
         {

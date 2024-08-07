@@ -56,7 +56,7 @@ public class GetOTCTradings : IBackgroundTask
 
                 if (cancellationToken.IsCancellationRequested)
                 {
-                    return TaskStatus.Canceled;
+                    return TaskStatus.Cancelled;
                 }
             }
             catch (Exception ex)

@@ -321,7 +321,7 @@ public static class TaskScheduleManager
                         }
                         else
                         {
-                            taskSchedule.Status = TaskStatus.Canceled;
+                            taskSchedule.Status = TaskStatus.Cancelled;
                         }
                     }
                     catch (Exception ex)

@@ -22,7 +22,7 @@ namespace Birdsoft.SecuIntegrator24.SystemInfrastructureObject.BackgroundTask
         /// <summary>
         ///     The task has been canceled
         /// </summary>
-        Canceled,
+        Cancelled,
         /// <summary>
         ///     The task has faulted
         /// </summary>

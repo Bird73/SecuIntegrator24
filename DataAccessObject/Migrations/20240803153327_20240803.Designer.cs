@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace SecuIntegrator24DAO.Migrations
 {
-    [DbContext(typeof(TradingContext))]
+    [DbContext(typeof(TradingDbContext))]
     [Migration("20240803153327_20240803")]
     partial class _20240803
     {

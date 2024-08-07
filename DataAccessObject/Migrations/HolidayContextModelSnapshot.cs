@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace SecuIntegrator24BO.Migrations
 {
-    [DbContext(typeof(HolidayContext))]
+    [DbContext(typeof(HolidayDbContext))]
     partial class HolidayContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

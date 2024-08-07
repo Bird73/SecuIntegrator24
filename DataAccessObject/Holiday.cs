@@ -30,19 +30,6 @@ public class Holiday
 }
 
 /// <summary>
-///     Represents the context for the holidays
-/// </summary>
-public class HolidayContext : DbContext
-{
-    public DbSet<Holiday> Holidays { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseSqlite("Data Source=SecuIntegrator24.db");
-    }
-}
-
-/// <summary>
 ///     Data Access Object for the holidays
 /// </summary>
 public class HolidayDAO
@@ -55,7 +42,7 @@ public class HolidayDAO
     {
         try
         {
-            using (var db = new HolidayContext())
+            using (var db = new HolidayDbContext())
             {
                 return db.Holidays.ToList();
             }
@@ -81,7 +68,7 @@ public class HolidayDAO
     {
         try
         {
-            using (var db = new HolidayContext())
+            using (var db = new HolidayDbContext())
             {
                 var query = $"SELECT * FROM Holidays WHERE strftime('%Y', Date) = '{year}'";
                 return db.Holidays.FromSqlRaw(query).ToList();
@@ -108,7 +95,7 @@ public class HolidayDAO
         try
         {
             // add if not exists
-            using (var db = new HolidayContext())
+            using (var db = new HolidayDbContext())
             {
                 var existingHoliday = db.Holidays.FirstOrDefault(h => h.Date == holiday.Date);
                 if (existingHoliday == null)

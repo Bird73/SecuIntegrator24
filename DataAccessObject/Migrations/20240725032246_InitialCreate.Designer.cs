@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace SecuIntegrator24BO.Migrations
 {
-    [DbContext(typeof(HolidayContext))]
+    [DbContext(typeof(HolidayDbContext))]
     [Migration("20240725032246_InitialCreate")]
     partial class InitialCreate
     {

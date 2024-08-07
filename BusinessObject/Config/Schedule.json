@@ -34,7 +34,20 @@
       "TaskNames": ["GetListingTradings"],
       "Condition": 0
     }
-
+  },
+  {
+    "Name": "GetMonthlyRevenues",
+    "Schedule": {
+      "WeeklyDays": [],
+      "MonthlyDays": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
+      "YearlyDates": [],
+      "ExecutionTime": "2024-01-01T16:06:00",
+      "RunOnStartup": true
+    },
+    "Precondition": {
+      "TaskNames": ["GetListingTradings","GetOTCTradings"],
+      "Condition": 0
+    }
   }
 ]
   
